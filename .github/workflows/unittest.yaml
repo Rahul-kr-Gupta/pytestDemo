@@ -26,6 +26,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install flake8 pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          
+      - name: Install dependencies2
+        run: pip install pytest pytest-md pytest-emoji
+        
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names
@@ -33,52 +37,14 @@ jobs:
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
           
-      - name: pytest
-        id: pytest
-        uses: alexanderdamiani/pytester-cov@v1.2.0
+      - name: Run pytest
+        uses: pavelzw/pytest-action@v1
         with:
-          pytest-root-dir: '.'
-          cov-omit-list: 'test/*, temp/main3.py, temp/main4.py'
-          cov-threshold-single: ${{ env.COVERAGE_SINGLE }}
-          cov-threshold-total: ${{ env.COVERAGE_TOTAL }}
+          verbose: true
+          emoji: true
+          job_summary: true
+          custom_arguments: '-q'
 
-      - name: Coverage single fail - new issue
-        if: ${{ steps.pytester-cov.outputs.cov-threshold-single-fail == 'true' }}
-        uses: nashmaniac/create-issue-action@v1.1
-        with:
-          title: Pytest coverage single falls below minimum ${{ env.COVERAGE_SINGLE }}
-          token: ${{secrets.GITHUB_TOKEN}}
-          assignees: ${{github.actor}}
-          labels: worflow-failed
-          body: ${{ steps.pytester-cov.outputs.output-table }}
-
-      - name: Coverage single fail - exit
-        if: ${{ steps.pytester-cov.outputs.cov-threshold-single-fail == 'true' }}
-        run: |
-          echo "cov single fail ${{ steps.pytester-cov.outputs.cov-threshold-single-fail }}"
-          exit 1
-
-      - name: Coverage total fail - new issue
-        if: ${{ steps.pytester-cov.outputs.cov-threshold-total-fail == 'true' }}
-        uses: nashmaniac/create-issue-action@v1.1
-        with:
-          title: Pytest coverage total falls below minimum ${{ env.COVERAGE_TOTAL }}
-          token: ${{secrets.GITHUB_TOKEN}}
-          assignees: ${{github.actor}}
-          labels: worflow-failed
-          body: ${{ steps.pytester-cov.outputs.output-table }}
-
-      - name: Coverage total fail - exit
-        if: ${{ steps.pytester-cov.outputs.cov-threshold-total-fail == 'true' }}
-        run: |
-          echo "cov single fail ${{ steps.pytester-cov.outputs.cov-threshold-total-fail }}"
-          exit 1
-
-      - name: Commit pytest coverage table
-        uses: peter-evans/commit-comment@v1
-        with:
-          body: ${{ steps.pytester-cov.outputs.output-table }}
-          
       - name: Deploy pages
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
