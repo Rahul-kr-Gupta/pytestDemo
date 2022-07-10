@@ -1,2 +1,6 @@
 numpy
+<<<<<<< Updated upstream
 pytest-html
+=======
+allure-pytest
+>>>>>>> Stashed changes
