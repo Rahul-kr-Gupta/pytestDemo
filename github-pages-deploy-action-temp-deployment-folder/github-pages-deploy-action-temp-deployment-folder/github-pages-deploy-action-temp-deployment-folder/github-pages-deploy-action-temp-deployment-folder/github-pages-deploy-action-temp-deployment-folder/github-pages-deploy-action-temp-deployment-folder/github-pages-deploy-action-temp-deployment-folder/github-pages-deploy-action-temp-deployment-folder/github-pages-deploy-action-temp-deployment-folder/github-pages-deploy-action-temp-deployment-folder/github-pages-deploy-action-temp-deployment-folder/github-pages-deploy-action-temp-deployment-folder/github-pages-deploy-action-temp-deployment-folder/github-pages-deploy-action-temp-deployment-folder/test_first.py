@@ -54,9 +54,9 @@ def test_addProduct():
 def test_logout():
     print("Logout done")
 
-# @pytest.mark.xfail()
-# def test_add_to_cart():
-#     print("added to the cart")
+@pytest.mark.xfail()
+def test_add_to_cart():
+    print("added to the cart")
 # pytest -m "marker_name"
 # pytest -m "marker_1 or marker_2"
 # pytest -m "marker_1 and marker_2"
@@ -66,14 +66,14 @@ def test_logout():
 
 
 # ! parametrize
-# @pytest.mark.parametrize("username,password",[
-#     ("selenium","webdriver"),
-#     ("rahul","keshav"),
-#     ("radha","madhav"),
-#     ("krishna","balram"),
-# ])
-# def test_login_page(username,password):
-#     assert username==password
+@pytest.mark.parametrize("username,password",[
+    ("selenium","webdriver"),
+    ("rahul","keshav"),
+    ("radha","madhav"),
+    ("krishna","balram"),
+])
+def test_login_page(username,password):
+    assert username==password
 
 # ! Fixtures 1:09:53
 # 1:09:53

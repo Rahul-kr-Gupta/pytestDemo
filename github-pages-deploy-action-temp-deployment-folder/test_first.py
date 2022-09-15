@@ -16,6 +16,7 @@ def test_2():
 
 def test_api():
     print('api testing')
+    
 # pytest -rA
 # will give the info of all the test cases...
 
