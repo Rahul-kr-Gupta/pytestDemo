@@ -1,0 +1,3 @@
+start the browser
+run test 1
+close the browser
