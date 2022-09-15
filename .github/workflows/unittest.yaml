@@ -36,7 +36,7 @@ jobs:
           
       - name: Test with pytest
         run: |
-          python -m pytest
+          pytest --alluredir=allure-report/
           
           
 #       - name: Create Test Results History
