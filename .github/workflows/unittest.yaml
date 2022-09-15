@@ -64,7 +64,7 @@ jobs:
             authToken: ${{secrets.GITHUB_TOKEN}}
             context: 'Test report'
             state: 'success'
-            sha: ${{ github.event.pull_request.head.sha }}
+            sha: ${{github.event.pull_request.head.sha || github.sha}}
             target_url: Rahul-kr-Gupta.github.io/github-allure-history/${{ github.run_number }}
           
           
