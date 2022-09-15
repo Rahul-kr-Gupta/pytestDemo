@@ -39,13 +39,17 @@ jobs:
           python -m pytest
           
           
-      - name: Deploy report to Github Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v2
-        env:
-          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: allure-report
+      - name: Create Test Results History
+        uses: PavanMudigonda/allure-html-reporter-azure-website@v1.0
+        with:
+          allure_results: allure-results
+          allure_history: allure-history
+          allure_report: allure-report
+          keep_reports: 15
+          account_name: ${{ secrets.ACCOUNT_NAME }}
+          container: ${{ secrets.CONTAINER }}
+          SAS: ${{ secrets.SAS }}
+
         
         
  
