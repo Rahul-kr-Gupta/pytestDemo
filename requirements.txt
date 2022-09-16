@@ -1,3 +1,6 @@
 numpy
 pytest-html
 allure-pytest
+flake8
+pytest
+pytest-custom_exit_code
