@@ -38,8 +38,8 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
           
       - name: Test with pytest
-        run: |
-          pytest --alluredir=allure-report/
+        if: always()
+        run: pytest --alluredir=allure-results
         continue-on-error: true
           
           
